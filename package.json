@@ -6,6 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Balaji6245/ExpenseTracker.git#main"
+  },
   "author": "Balaji S",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Balaji6245/ExpenseTracker/issues"
+  },
+  "homepage": "https://github.com/Balaji6245/ExpenseTracker/tree/main#readme"
 }
