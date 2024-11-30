@@ -4,6 +4,11 @@
   "description": "This project is about managing expenses for users",
   "main": "index.js",
   "scripts": {
+    "build": "rimraf dist && tsc",
+    "preserve": "npm run build",
+    "serve": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+    "prestart": "npm run build",
+    "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,8 +30,10 @@
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^7.4.1",
     "helmet": "^8.0.0",
+    "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.11.0",
+    "rimraf": "^6.0.1",
     "typescript": "^5.7.2",
     "xss": "^1.0.15"
   },

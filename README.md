@@ -29,3 +29,4 @@ Packages I used for this project
 14. express-rate-limit (https://www.npmjs.com/package/express-rate-limit)
 15. Exceljs (https://www.npmjs.com/package/exceljs)
 16. Json web token (https://www.npmjs.com/package/jsonwebtoken)
+17. Rimraf (https://www.npmjs.com/package/rimraf)
