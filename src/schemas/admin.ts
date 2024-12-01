@@ -2,7 +2,7 @@ import { Schema, Document, Enum, model } from "../helpers/path";
 
 let options = {
     timestamps: true,
-    verstionkey: true
+    versionkey: true
 }
 
 let requiredString = { type: String, required: true };
