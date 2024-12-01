@@ -2,7 +2,7 @@ import { Schema, Document, model, ObjectId, mongoose, Enum } from "../helpers/pa
 
 let options = {
     timestamps: true,
-    versionkey: true
+    versionkey: false
 }
 
 let requiredString = { type: String, required: true }

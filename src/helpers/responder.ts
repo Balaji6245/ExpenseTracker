@@ -8,7 +8,6 @@ class ResponderClass {
         let result = {
             success: true,
             message,
-            code
         }
         res.status(code).end(JSON.stringify(result));
     }
