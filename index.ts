@@ -7,6 +7,7 @@ import ExpressMongoSanitize from 'express-mongo-sanitize';
 import rateLimit from 'express-rate-limit';
 import * as dotenv from 'dotenv';
 import 'colors';
+import { connectDB } from './src/connection/dbConnection';
 
 let app = express();
 dotenv.config();
@@ -29,6 +30,8 @@ let limiter = rateLimit({
 });
 
 app.use(limiter);
+
+connectDB(); // Connect our database here
 
 let PORT = process.env.PORT || 8080;
 
