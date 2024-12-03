@@ -8,7 +8,7 @@ import rateLimit from 'express-rate-limit';
 import * as dotenv from 'dotenv';
 import 'colors';
 import { connectDB } from './src/connection/dbConnection';
-import { AuthRouter } from './src/helpers/path';
+import { AdminRouter, AuthRouter } from './src/helpers/path';
 
 let app = express();
 dotenv.config();
@@ -35,6 +35,7 @@ app.use(limiter);
 connectDB(); // Connect our database here
 
 app.use('/api/v1/auth', AuthRouter);
+app.use('/api/v1/admin', AdminRouter)
 
 let PORT = process.env.PORT || 8080;
 

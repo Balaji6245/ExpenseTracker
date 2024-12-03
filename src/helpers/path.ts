@@ -21,3 +21,4 @@ export { TransactionModel } from '../schemas/transaction';
 
 // Import routers
 export { AuthRouter } from '../controller/authentication/router';
+export { AdminRouter } from '../controller/admin/router';
