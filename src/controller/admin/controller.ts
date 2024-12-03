@@ -4,7 +4,7 @@ class Admin {
     constructor() { }
 
     adminDetail = async (req: Request, res: Response) => {
-        let token = await Utils.getToken(req, res);
+        let token = await Utils.getToken(req);
         if (!token) return Responder.sendFailureMessage(AdminMsg.noAuthAcc, StatusCodes.UNAUTHORIZED, res);
 
         let verifyUser = await Utils.verifyToken(token);
@@ -18,7 +18,7 @@ class Admin {
     updateAdmin = async (req: Request, res: Response) => {
         let data = req?.body;
 
-        let token = await Utils.getToken(req, res);
+        let token = await Utils.getToken(req);
         if (!token) return Responder.sendFailureMessage(AdminMsg.noAuthAcc, StatusCodes.UNAUTHORIZED, res);
 
         let verifyUser = await Utils.verifyToken(token);

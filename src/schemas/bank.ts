@@ -12,12 +12,12 @@ interface IBank extends Document {
     ifsc: string,
     acc_no: string,
     branch: string,
-    user_id: ObjectId, // Save admin objectId from admin collection
+    user: ObjectId, // Save admin objectId from admin collection
     active: number
 }
 
 let bankSchema = new Schema<IBank>({
-    user_id: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'admin'
     },

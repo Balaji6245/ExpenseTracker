@@ -13,7 +13,7 @@ class Util {
         return crypto.createHash('md5').update(password).digest('hex')
     }
 
-    getToken = async (req: Request, res: Response) => {
+    getToken = async (req: Request) => {
         let token: any
         if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
             token = req.headers.authorization.split(' ')[1]

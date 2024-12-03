@@ -16,4 +16,17 @@ let AdminMsg = {
     update404: "Unable to update admin account"
 }
 
-export { AdminMsg }
+let BankMsg = {
+    created: "Bank account created",
+    created404: "Unable to create bank account",
+    allBanks: "All bank list",
+    allBank404: "Unable to fetch banks list",
+    bankDetail: "Bank detail",
+    bankDetail404: "Unable to fetch bank detail",
+    updateBank: "Bank detail updated",
+    updateBank404: "Unable to update bank detail",
+    bankDelete: "Banks account deleted",
+    bankDelete404: "Unable to delete bank account"
+}
+
+export { AdminMsg, BankMsg }
