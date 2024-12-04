@@ -1,4 +1,4 @@
-import { jwt, crypto, ObjectId, Request, Responder, AdminMsg, StatusCodes, Response, AdminModel, Enum } from "./path";
+import { jwt, crypto, ObjectId, Request, Responder, AdminMsg, StatusCodes, Response, AdminModel, Enum, mongoose } from "./path";
 
 class Util {
     constructor() { }
@@ -27,6 +27,14 @@ class Util {
         if (decode)
             return decode;
         else return null;
+    }
+
+    appendRegex = async (query: any, field: string, value: any) => {
+        query[field] = { $regex: new RegExp(value.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), 'i') }
+    }
+
+    retrunObjectId = async (id: string) => {
+        return new mongoose.Types.ObjectId(id)
     }
 }
 

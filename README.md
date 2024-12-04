@@ -31,3 +31,23 @@ Packages I used for this project
 15. Json web token (https://www.npmjs.com/package/jsonwebtoken)
 16. Rimraf (https://www.npmjs.com/package/rimraf)
 17. http-status-codes (https://www.npmjs.com/package/http-status-codes)
+
+Features:
+
+1. User Authentication:
+Sign up/Login using JWT-based authentication.
+Password hashing with bcrypt.
+Transaction Management
+
+2. Add income/expense transactions:
+Edit or delete transactions.
+Categorize transactions (e.g., food, rent, travel, etc.).
+Reports & Visualization
+
+3. Generate reports (monthly/yearly summaries):
+Group transactions by category or date.
+Provide aggregated data such as total income, total expenses, and savings.
+
+4. Filters and Sorting:
+Filter transactions by date range or category.
+Sort transactions by amount, date, or type (income/expense).

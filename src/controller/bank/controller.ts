@@ -23,13 +23,23 @@ class Bank {
     }
 
     getAllBanks = async (req: Request, res: Response) => {
+        let query: any = req?.query;
+
         let token = await Utils.getToken(req);
         if (!token) return Responder.sendFailureMessage(AdminMsg.noAuthAcc, StatusCodes.UNAUTHORIZED, res);
 
         let verifyToken = await Utils.verifyToken(token);
         if (!verifyToken) return Responder.sendFailureMessage(AdminMsg.tokenExp, StatusCodes.UNAUTHORIZED, res);
 
-        let banks = await BankModel.find({ user: verifyToken?.id, active: Enum.STATUS.ACTIVE });
+        // Adding filter search
+        if (query?.name) await Utils.appendRegex(query, 'name', query?.name);
+        if (query?.ifsc) await Utils.appendRegex(query, 'ifsc', query?.ifsc);
+        if (query?.acc_no) await Utils.appendRegex(query, 'acc_no', query?.acc_no);
+        if (query?.branch) await Utils.appendRegex(query, 'branch', query?.branch);
+        query["user"] = await Utils.retrunObjectId(verifyToken?.id);
+        query['active'] = Enum.STATUS.ACTIVE;
+
+        let banks = await BankModel.find(query);
         if (banks) Responder.sendSuccessData({ banks }, BankMsg.allBanks, StatusCodes.OK, res);
         else Responder.sendFailureMessage(BankMsg.allBank404, StatusCodes.NOT_FOUND, res);
     }
