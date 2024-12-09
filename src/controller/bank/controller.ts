@@ -15,6 +15,10 @@ class Bank {
         if (!data?.name || !data?.ifsc || !data.acc_no || !data?.branch)
             return Responder.sendFailureMessage(AdminMsg.validField, StatusCodes.BAD_REQUEST, res);
 
+        let bank: any = await this.checkBank(data);
+        if (bank)
+            return Responder.sendFailureMessage(BankMsg.bankExsist, StatusCodes.FORBIDDEN, res);
+
         data['user'] = verifyToken?.id;
 
         let createBank = await BankModel.create(data);
@@ -70,6 +74,10 @@ class Bank {
         let verifyToken = await Utils.verifyToken(token);
         if (!verifyToken) return Responder.sendFailureMessage(AdminMsg.tokenExp, StatusCodes.UNAUTHORIZED, res);
 
+        let bank: any = await this.checkBank(data);
+        if (bank)
+            return Responder.sendFailureMessage(BankMsg.bankExsist, StatusCodes.FORBIDDEN, res);
+
         let userId = verifyToken?.id
 
         let updateBank = await BankModel.findOneAndUpdate({ _id: id, user: userId, active: Enum.STATUS.ACTIVE }, data, { new: true }).exec();
@@ -91,6 +99,10 @@ class Bank {
         let deleteBank = await BankModel.findOneAndUpdate({ _id: id, user: userId, active: Enum.STATUS.ACTIVE }, { active: Enum.STATUS.DELETE }, { new: true }).exec();
         if (deleteBank) Responder.sendSuccessMessage(BankMsg.bankDelete, StatusCodes.OK, res);
         else Responder.sendFailureMessage(BankMsg.bankDelete404, StatusCodes.NOT_MODIFIED, res);
+    }
+
+    checkBank = async (data: any) => {
+        return BankModel.findOne({ name: data?.name, branch: data?.branch })
     }
 }
 

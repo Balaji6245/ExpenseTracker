@@ -26,7 +26,22 @@ let BankMsg = {
     updateBank: "Bank detail updated",
     updateBank404: "Unable to update bank detail",
     bankDelete: "Banks account deleted",
-    bankDelete404: "Unable to delete bank account"
+    bankDelete404: "Unable to delete bank account",
+    bankExsist: "Enter bank already exsist"
 }
 
-export { AdminMsg, BankMsg }
+let CatMsg = {
+    created: "Category created",
+    create404: "Unable to create category",
+    catExsist: "category already exsist",
+    catList: "Categories",
+    catList404: "Categories not found",
+    category: "Category",
+    category404: "Category not fount",
+    updCat: "Category updated",
+    updCat404: "Unable to update category",
+    deleteCat: "Category deleted",
+    deleteCat404: "Unable to delete category"
+}
+
+export { AdminMsg, BankMsg, CatMsg }

@@ -1,10 +1,11 @@
 import express from 'express';
 import { Controller } from './controller';
-import { BankRouter } from '../bank/router';
+import { BankRouter, CategoryRouter } from '../../helpers/path';
 
 let app = express.Router();
 
 app.use('/bank', BankRouter);
+app.use('/category', CategoryRouter)
 
 app.get('/', (req, res) => {
     Controller.adminDetail(req, res)

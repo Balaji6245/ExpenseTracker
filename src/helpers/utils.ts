@@ -36,6 +36,16 @@ class Util {
     retrunObjectId = async (id: string) => {
         return new mongoose.Types.ObjectId(id)
     }
+
+    returnPageLimit = async (query: any) => {
+        let page: number = parseInt(query?.page ?? 1) - 1;
+        let limit: number = parseInt(query?.limit ?? 10);
+
+        delete query?.page;
+        delete query?.limit;
+
+        return { page, limit }
+    }
 }
 
 export const Utils = new Util();
