@@ -16,8 +16,8 @@ class ResponderClass {
         res.setHeader('content-type', 'application/json');
         let result = {
             success: true,
-            data,
             message,
+            data
         }
         res.status(code).end(JSON.stringify(result));
     }

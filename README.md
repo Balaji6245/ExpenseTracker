@@ -31,6 +31,7 @@ Packages I used for this project
 15. Json web token (https://www.npmjs.com/package/jsonwebtoken)
 16. Rimraf (https://www.npmjs.com/package/rimraf)
 17. http-status-codes (https://www.npmjs.com/package/http-status-codes)
+18. Moment (https://www.npmjs.com/package/moment)
 
 Features:
 

@@ -28,4 +28,5 @@ let bankSchema = new Schema<IBank>({
     active: { type: Number, default: Enum.STATUS.ACTIVE }
 }, options);
 
-export const BankModel = model<IBank>('bank', bankSchema);
+const BankModel = model<IBank>('bank', bankSchema);
+export { BankModel, IBank }

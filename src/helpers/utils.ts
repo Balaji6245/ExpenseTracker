@@ -1,4 +1,4 @@
-import { jwt, crypto, ObjectId, Request, Responder, AdminMsg, StatusCodes, Response, AdminModel, Enum, mongoose } from "./path";
+import { jwt, crypto, ObjectId, Request, Responder, AdminMsg, StatusCodes, Response, AdminModel, Enum, mongoose, moment } from "./path";
 
 class Util {
     constructor() { }
@@ -30,7 +30,7 @@ class Util {
     }
 
     appendRegex = async (query: any, field: string, value: any) => {
-        query[field] = { $regex: new RegExp(value.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), 'i') }
+        return query[field] = { $regex: new RegExp(value.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), 'i') }
     }
 
     retrunObjectId = async (id: string) => {
@@ -45,6 +45,43 @@ class Util {
         delete query?.limit;
 
         return { page, limit }
+    }
+
+    dateQuery = async (query: any) => {
+        if (query?.from && query?.to) {
+            query['createdAt'] = {
+                $gte: new Date(moment(query?.from).startOf('days').local().format()),
+                $lte: new Date(moment(query?.to).endOf('days').local().format())
+            }
+            delete query?.from
+            delete query?.to
+        }
+    }
+
+    lookupPipeline = async (from: string, local: string, foreign: string, as: string) => {
+        return {
+            $lookup: {
+                from: from,
+                localField: local,
+                foreignField: foreign,
+                as: as
+            }
+        }
+    }
+
+    unwindPipeline = async (field: string) => {
+        return {
+            $unwind: {
+                path: field,
+                preserveNullAndEmptyArrays: true
+            }
+        }
+    }
+
+    matchPipeline = async (query: any) => {
+        return {
+            $match: query
+        }
     }
 }
 

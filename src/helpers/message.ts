@@ -44,4 +44,15 @@ let CatMsg = {
     deleteCat404: "Unable to delete category"
 }
 
-export { AdminMsg, BankMsg, CatMsg }
+let ExpeMsg = {
+    created: "Expense created",
+    create404: "Unable to create expense",
+    expense404: "Data not found",
+    expense: "Data",
+    update: "Document updated",
+    update404: "Unable to update",
+    delete: "Data deleted",
+    delete404: "Unable to delete data"
+}
+
+export { AdminMsg, BankMsg, CatMsg, ExpeMsg }
