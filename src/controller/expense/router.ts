@@ -8,11 +8,15 @@ app.post('/', (req, res) => {
 });
 
 app.get('/:id', (req, res) => {
-    Controller.epense(req, res)
+    Controller.expense(req, res);
 });
 
 app.get('/', (req, res) => {
     Controller.expenses(req, res)
+});
+
+app.get('/group-by', (req, res) => {
+    Controller.groupByExpense(req, res);
 });
 
 app.patch('/update/:id', (req, res) => {

@@ -40,7 +40,7 @@ class transaction {
         else Responder.sendFailureMessage(ExpeMsg.update404, StatusCodes.NOT_MODIFIED, res);
     }
 
-    epense = async (req: Request, res: Response) => {
+    expense = async (req: Request, res: Response) => {
         let id = req?.params?.id;
 
         let token = await Utils.getToken(req);
@@ -119,6 +119,73 @@ class transaction {
         let deleteExpense = await ExpenseModel.findOneAndUpdate(query, { active: Enum.STATUS.DELETE }, { new: true }).exec();
         if (deleteExpense) Responder.sendSuccessMessage(ExpeMsg.delete, StatusCodes.OK, res);
         else Responder.sendFailureMessage(ExpeMsg.delete404, StatusCodes.NOT_MODIFIED, res);
+    }
+
+    groupByExpense = async (req: Request, res: Response) => {
+        let query = req?.query;
+        let { page, limit } = await Utils.returnPageLimit(query);
+
+        let token = await Utils.getToken(req);
+        if (!token) return Responder.sendFailureMessage(AdminMsg.noAuthAcc, StatusCodes.UNAUTHORIZED, res);
+
+        let verifyToken = await Utils.verifyToken(token);
+        if (!verifyToken) return Responder.sendFailureMessage(AdminMsg.noAuthAcc, StatusCodes.UNAUTHORIZED, res);
+
+        query["user"] = verifyToken?.id
+
+        let expenseAggregate: any = [
+            { $match: {} },
+            {
+                $group: {
+                    _id: {
+                        $dateToString: {
+                            format: "%Y-%m-%d",
+                            date: "$createdAt"
+                        }
+                    },
+                    income: {
+                        $sum: {
+                            $cond: [
+                                { $eq: ["$type", "income"] },
+                                "$amount",
+                                0
+                            ]
+                        }
+                    },
+                    expense: {
+                        $sum: {
+                            $cond: [
+                                { $eq: ["$type", "expense"] },
+                                "$amount",
+                                0
+                            ]
+                        }
+                    },
+                    user: { $first: "$user" }
+                }
+            },
+            {
+                $sort: {
+                    _id: -1
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    date: "$_id",
+                    income: 1,
+                    expense: 1,
+                    overAllIncome: {
+                        $subtract: ["$income", "$expense"]
+                    }
+                }
+            },
+            { $skip: page * limit },
+            { $limit: limit }
+        ]
+
+        let expenses = await ExpenseModel.aggregate(expenseAggregate);
+        if (expenses) Responder.sendSuccessData({ expenses }, ExpeMsg.expense, StatusCodes.OK, res);
     }
 
 }
