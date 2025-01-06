@@ -9,7 +9,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh 'docker build -f DockerFile .'
+        sh 'docker build . -f expense_tracker'
       }
     }
 
